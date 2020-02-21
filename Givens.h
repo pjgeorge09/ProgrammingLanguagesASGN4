@@ -2,6 +2,8 @@
 #define GIVENS_H
 
 #include <regex.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 #define FALSE 0
 #define TRUE !FALSE
