@@ -21,19 +21,26 @@ _Bool tokenizer(struct lexics *aLex, int *numLex, FILE *inf){
 			int token;
 			int m = 0;
 			char holder[MY_CHAR_MAX];
-			// struct lexics *lexToAdd = (struct lexics *) malloc(sizeof(struct lexics));
 			if(isalpha(fileAsString[n])){
-				// printf("%c",fileAsString[n]);
 				holder[m] = fileAsString[n];
-				n++;
-				m++;
+				n++; m++;
 				while(isalpha(fileAsString[n]) || isdigit(fileAsString[n])){
-					// printf("%c",fileAsString[n]);
 					holder[m] = fileAsString[n];
-					n++;
-					m++;
+					n++; m++;
 				}
-				token = IDENTIFIER;
+				if (strcmp(holder, "while")==0){
+					// printf("Expected WHILE. Received %s\n",holder);
+					token = WHILE_KEYWORD;
+				}
+				else if (strcmp(holder, "return")==0){
+					token = RETURN_KEYWORD;
+				}
+				else if ((strcmp(holder, "int")==0) || (strcmp(holder, "void"))){
+					token = VARTYPE;
+				}
+				else{
+					token = IDENTIFIER;
+				}
 			}
 			else if(isdigit(fileAsString[n])){
 				holder[m] = fileAsString[n];
@@ -58,8 +65,7 @@ _Bool tokenizer(struct lexics *aLex, int *numLex, FILE *inf){
 					case '}': token = RIGHT_BRACKET; break;
 					case '=':
 						if(fileAsString[n+1] == '='){  //BINOP ==
-							n++;
-							m++;
+							n++; m++;
 							holder[m] = fileAsString[n];
 							token = BINOP;
 						}
@@ -73,8 +79,7 @@ _Bool tokenizer(struct lexics *aLex, int *numLex, FILE *inf){
 					case '*': token = BINOP; break;
 					case '!':
 						if(fileAsString[n+1] == '='){  //BINOP ==
-							n++;
-							m++;
+							n++; m++;
 							holder[m] = fileAsString[n];
 							token = BINOP;
 						}
@@ -86,7 +91,7 @@ _Bool tokenizer(struct lexics *aLex, int *numLex, FILE *inf){
 					case '%': token = BINOP; break;
 					default: {printf("%s : Did not match any case.\n", holder);}
 				}
-				n++;	m++;
+				n++; m++;
 			}
 			// At this point I can have Holder holding the lexeme and Token the value and just call it once.
 			// ADD NULL TERMINATOR OR WHATEVER
@@ -103,10 +108,6 @@ _Bool tokenizer(struct lexics *aLex, int *numLex, FILE *inf){
 				lexToAdd->lexeme[x] = holder[x];
 			}
 			lexToAdd->token = token;
-			// *lexToAdd = (struct lexics){.lexeme = *holder, .token=token};
-			// char *data = holder;
-			// *lexToAdd->lexeme = &holder;
-			// lexToAdd->token = token;
 			aLex[count] = *lexToAdd;
 			count++;
 			// Need this to zero out the array because it doesn't use local fucking memory i guess

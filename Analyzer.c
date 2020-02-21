@@ -21,14 +21,14 @@ int main(){
 	struct lexics allLexics[1024];
 	int numberOfLexics = 0;
 	printf("Did tokenize: %d\n",tokenizer(allLexics, &numberOfLexics, infile));
-	for (int x = 0; x < numberOfLexics; x++){
-		printf("%s\n",allLexics[x].lexeme);
-	}
+	// for (int x = 0; x < numberOfLexics; x++){
+	// 	printf("%s\n",allLexics[x].lexeme);
+	// }
 	printf("Number of lexemes: %d\n",numberOfLexics);
 	printf("Lexemes: ");
-	for(int i = 0; i < numberOfLexics; i++){
-		printf("In Analyzer.h : %s  \n",allLexics[i].lexeme);
-	}
+	// for(int i = 0; i < numberOfLexics; i++){
+	// 	printf("In Analyzer.h : %s  \n",allLexics[i].lexeme);
+	// }
 	printf("\n");
 	printf("Did parse: %d\n",parser(allLexics, numberOfLexics));
 
