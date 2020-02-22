@@ -5,7 +5,8 @@
 
 _Bool parser(struct lexics *someLexics, int numberOfLexics);
 
-// MY METHODS
+// Methods Used. Described in the .c file as to document process.
+//  arg *someLexics is the array at lexics for all methods.
 int peek(struct lexics *someLexics);
 _Bool function(struct lexics *someLexics);
 _Bool header(struct lexics *someLexics);
