@@ -93,7 +93,7 @@ _Bool tokenizer(struct lexics *aLex, int *numLex, FILE *inf){
 						// Error in any other case.
 						else{
 							printf("Expected '!=', but received %c%c\n", fileAsString[n],fileAsString[n+1]);
-							exit(0);
+							return(0);
 						}
 						break;
 					case '%': token = BINOP; break;

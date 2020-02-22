@@ -34,10 +34,10 @@ int peek(struct lexics *someLexics){
 _Bool function(struct lexics *someLexics){
 	_Bool functionBool = 1;
 	if((functionBool = header(someLexics)) != 1){
-		printf("Failed in function method when calling header\n"); exit(0);
+		printf("Failed in function method when calling header\n"); return(0);
 	}
 	if((functionBool = body(someLexics)) != 1){
-		printf("Failed in function method when calling body\n"); exit(0);
+		printf("Failed in function method when calling body\n"); return(0);
 	}
 	return functionBool;
 }
@@ -47,21 +47,21 @@ _Bool function(struct lexics *someLexics){
 _Bool header(struct lexics *someLexics){
 	_Bool headerBool = 1;
 	if((headerBool = vartype(someLexics)) != 1){
-		printf("Failed in header method when calling header\n"); exit(0);
+		printf("Failed in header method when calling header\n"); return(0);
 	}
 	if((headerBool = identifier(someLexics)) != 1){
-		printf("Failed in header method when calling identifier\n"); exit(0);
+		printf("Failed in header method when calling identifier\n"); return(0);
 	}
 	if((headerBool = LP(someLexics)) != 1){
-		printf("Failed in header method when calling LP\n"); exit(0);
+		printf("Failed in header method when calling LP\n"); return(0);
 	}
 	if(peek(someLexics) == VARTYPE){
 		if((headerBool = argdec(someLexics)) != 1){
-			printf("Failed in header method when calling argdec\n"); exit(0);
+			printf("Failed in header method when calling argdec\n"); return(0);
 		}
 	}
 	if((headerBool = RP(someLexics)) != 1){
-		printf("Failed in function method when calling RP\n"); exit(0);
+		printf("Failed in function method when calling RP\n"); return(0);
 	}
 	return headerBool;
 }
@@ -73,7 +73,7 @@ _Bool vartype(struct lexics *someLexics){
 		return 1;
 	}
 	else{
-		printf("Failed. Expected %d, received %d at token number %d\n",VARTYPE,someLexics[position].token,position); exit(0);
+		printf("Failed. Expected %d, received %d at token number %d\n",VARTYPE,someLexics[position].token,position); return(0);
 	}
 }
 
@@ -84,7 +84,7 @@ _Bool identifier(struct lexics *someLexics){
 		return 1;
 	}
 	else{
-		printf("Failed. Expected %d, received %d at token number %d\n",IDENTIFIER,someLexics[position].token,position); exit(0);
+		printf("Failed. Expected %d, received %d at token number %d\n",IDENTIFIER,someLexics[position].token,position); return(0);
 	}
 }
 
@@ -95,7 +95,7 @@ _Bool LP(struct lexics *someLexics){
 		return 1;
 	}
 	else{
-		printf("Failed. Expected %d, received %d at token number %d\n",LEFT_PARENTHESIS,someLexics[position].token,position); exit(0);
+		printf("Failed. Expected %d, received %d at token number %d\n",LEFT_PARENTHESIS,someLexics[position].token,position); return(0);
 	}
 }
 
@@ -106,7 +106,7 @@ _Bool RP(struct lexics *someLexics){
 		return 1;
 	}
 	else{
-		printf("Failed. Expected %d, received %d at token number %d\n",RIGHT_PARENTHESIS,someLexics[position].token,position); exit(0);
+		printf("Failed. Expected %d, received %d at token number %d\n",RIGHT_PARENTHESIS,someLexics[position].token,position); return(0);
 	}
 }
 
@@ -115,20 +115,20 @@ _Bool RP(struct lexics *someLexics){
 _Bool argdec(struct lexics *someLexics){
 	_Bool argdecBool = 1;
 	if((argdecBool = vartype(someLexics)) != 1){
-		printf("Failed in argdec method when calling vartype\n"); exit(0);
+		printf("Failed in argdec method when calling vartype\n"); return(0);
 	}
 	if((argdecBool = identifier(someLexics)) != 1){
-		printf("Failed in argdec method when calling identifier\n"); exit(0);
+		printf("Failed in argdec method when calling identifier\n"); return(0);
 	}
 	while(peek(someLexics) == COMMA){
 		if((argdecBool = comma(someLexics)) != 1){
-			printf("Failed in argdec method when calling comma inside the while loop\n"); exit(0);
+			printf("Failed in argdec method when calling comma inside the while loop\n"); return(0);
 		}
 		if((argdecBool = vartype(someLexics)) != 1){
-			printf("Failed in argdec method when calling vartype\n"); exit(0);
+			printf("Failed in argdec method when calling vartype\n"); return(0);
 		}
 		if((argdecBool = identifier(someLexics)) != 1){
-			printf("Failed in argdec method when calling identifier\n"); exit(0);
+			printf("Failed in argdec method when calling identifier\n"); return(0);
 		}
 	}
 	return argdecBool;
@@ -139,16 +139,16 @@ _Bool argdec(struct lexics *someLexics){
 _Bool body(struct lexics *someLexics){
 	_Bool bodyBool = 1;
 	if((bodyBool = LB(someLexics)) != 1){
-		printf("Failed in body method when calling LB\n"); exit(0);
+		printf("Failed in body method when calling LB\n"); return(0);
 	}
 	int next = peek(someLexics);
 	if(next == WHILE_KEYWORD || next == RETURN_KEYWORD || next == IDENTIFIER || next == LEFT_BRACKET){
 		if((bodyBool = stmtlist(someLexics)) != 1){
-			printf("Failed in body method when calling stmtlist\n"); exit(0);
+			printf("Failed in body method when calling stmtlist\n"); return(0);
 		}
 	}
 	if((bodyBool = RB(someLexics)) != 1){
-		printf("Failed in function method when calling header\n"); exit(0);
+		printf("Failed in function method when calling header\n"); return(0);
 	}
 	return bodyBool;
 }
@@ -160,7 +160,7 @@ _Bool LB(struct lexics *someLexics){
 		return 1;
 	}
 	else{
-		printf("Failed. Expected %d, received %d at token number %d\n",LEFT_BRACKET,someLexics[position].token,position); exit(0);
+		printf("Failed. Expected %d, received %d at token number %d\n",LEFT_BRACKET,someLexics[position].token,position); return(0);
 	}
 }
 
@@ -171,7 +171,7 @@ _Bool RB(struct lexics *someLexics){
 		return 1;
 	}
 	else{
-		printf("Failed. Expected %d, received %d at token number %d\n",RIGHT_BRACKET,someLexics[position].token,position); exit(0);
+		printf("Failed. Expected %d, received %d at token number %d\n",RIGHT_BRACKET,someLexics[position].token,position); return(0);
 	}
 }
 
@@ -180,12 +180,12 @@ _Bool RB(struct lexics *someLexics){
 _Bool stmtlist(struct lexics *someLexics){
 	_Bool stmtlistBool = 1;
 	if((stmtlistBool = stmt(someLexics)) != 1){
-		printf("Failed in stmtlist method when calling stmt\n"); exit(0);
+		printf("Failed in stmtlist method when calling stmt\n"); return(0);
 	}
 	int next = peek(someLexics);
 	while(next == WHILE_KEYWORD || next == RETURN_KEYWORD || next == IDENTIFIER || next == LEFT_BRACKET){
 		if((stmtlistBool = stmt(someLexics)) != 1){
-			printf("Failed in stmtlist method when calling recursive stmt\n"); exit(0);
+			printf("Failed in stmtlist method when calling recursive stmt\n"); return(0);
 		}
 		next = peek(someLexics);
 	}
@@ -199,7 +199,7 @@ _Bool comma(struct lexics *someLexics){
 		return 1;
 	}
 	else{
-		printf("Failed. Expected %d, received %d at token number %d\n",COMMA,someLexics[position].token,position); exit(0);
+		printf("Failed. Expected %d, received %d at token number %d\n",COMMA,someLexics[position].token,position); return(0);
 	}
 }
 
@@ -209,26 +209,26 @@ _Bool stmt(struct lexics *someLexics){
 	_Bool stmtBool = 1;
 	if(peek(someLexics) == WHILE_KEYWORD){
 		if((stmtBool = _while(someLexics)) != 1){
-			printf("Failed in stmt method when calling recursive _while\n"); exit(0);
+			printf("Failed in stmt method when calling recursive _while\n"); return(0);
 		}
 	}
 	else if (peek(someLexics) == RETURN_KEYWORD)	{
 		if((stmtBool = _return(someLexics)) != 1){
-			printf("Failed in stmt method when calling recursive _return\n"); exit(0);
+			printf("Failed in stmt method when calling recursive _return\n"); return(0);
 		}
 	}
 	else if (peek(someLexics) == IDENTIFIER)	{
 		if((stmtBool = assignment(someLexics)) != 1){
-			printf("Failed in stmt method when calling recursive asgn\n"); exit(0);
+			printf("Failed in stmt method when calling recursive asgn\n"); return(0);
 		}
 	}
 	else if (peek(someLexics) == LEFT_BRACKET)	{
 		if((stmtBool = body(someLexics)) != 1){
-			printf("Failed in stmt method when calling recursive body\n"); exit(0);
+			printf("Failed in stmt method when calling recursive body\n"); return(0);
 		}
 	}
 	else{
-		printf("Failed in stmt method. Next token was actually a %d %s\n",someLexics[position].token,someLexics[position].lexeme); exit(0);
+		printf("Failed in stmt method. Next token was actually a %d %s\n",someLexics[position].token,someLexics[position].lexeme); return(0);
 	}
 	return stmtBool;
 }
@@ -238,19 +238,19 @@ _Bool stmt(struct lexics *someLexics){
 _Bool _while(struct lexics *someLexics){
 	_Bool _whileBool = 1;
 	if((_whileBool = whileKeyword(someLexics)) != 1){
-		printf("Failed in _while method when calling whileKeyword\n"); exit(0);
+		printf("Failed in _while method when calling whileKeyword\n"); return(0);
 	}
 	if((_whileBool = LP(someLexics)) != 1){
-		printf("Failed in _while method when calling LP\n"); exit(0);
+		printf("Failed in _while method when calling LP\n"); return(0);
 	}
 	if((_whileBool = expression(someLexics)) != 1){
-		printf("Failed in _while method when calling expression\n"); exit(0);
+		printf("Failed in _while method when calling expression\n"); return(0);
 	}
 	if((_whileBool = RP(someLexics)) != 1){
-		printf("Failed in _while method when calling RP\n"); exit(0);
+		printf("Failed in _while method when calling RP\n"); return(0);
 	}
 	if((_whileBool = stmt(someLexics)) != 1){
-		printf("Failed in _while method when calling stmt\n"); exit(0);
+		printf("Failed in _while method when calling stmt\n"); return(0);
 	}
 	return _whileBool;
 }
@@ -260,13 +260,13 @@ _Bool _while(struct lexics *someLexics){
 _Bool _return(struct lexics *someLexics){
 	_Bool _returnBool = 1;
 	if((_returnBool = returnKeyword(someLexics)) != 1){
-		printf("Failed in _return method when calling returnKeyword\n"); exit(0);
+		printf("Failed in _return method when calling returnKeyword\n"); return(0);
 	}
 	if((_returnBool = expression(someLexics)) != 1){
-		printf("Failed in _return method when calling expression\n"); exit(0);
+		printf("Failed in _return method when calling expression\n"); return(0);
 	}
 	if((_returnBool = EOLKeyword(someLexics)) != 1){
-		printf("Failed in _return method when calling EOLKeyword\n"); exit(0);
+		printf("Failed in _return method when calling EOLKeyword\n"); return(0);
 	}
 	return _returnBool;
 }
@@ -276,16 +276,16 @@ _Bool _return(struct lexics *someLexics){
 _Bool assignment(struct lexics *someLexics){
 	_Bool assignmentBool = 1;
 	if((assignmentBool = identifier(someLexics)) != 1){
-		printf("Failed in assignment method when calling identifier\n"); exit(0);
+		printf("Failed in assignment method when calling identifier\n"); return(0);
 	}
 	if((assignmentBool = equalKeyword(someLexics)) != 1){
-		printf("Failed in assignment method when calling equalKeyword\n"); exit(0);
+		printf("Failed in assignment method when calling equalKeyword\n"); return(0);
 	}
 	if((assignmentBool = expression(someLexics)) != 1){
-		printf("Failed in assignment method when calling expression\n"); exit(0);
+		printf("Failed in assignment method when calling expression\n"); return(0);
 	}
 	if((assignmentBool = EOLKeyword(someLexics)) != 1){
-		printf("Failed in assignment method when calling EOLKeyword\n"); exit(0);
+		printf("Failed in assignment method when calling EOLKeyword\n"); return(0);
 	}
 	return assignmentBool;
 }
@@ -297,7 +297,7 @@ _Bool whileKeyword(struct lexics *someLexics){
 		return 1;
 	}
 	else{
-		printf("Failed. Expected %d, received %d at token number %d\n",WHILE_KEYWORD,someLexics[position].token,position); exit(0);
+		printf("Failed. Expected %d, received %d at token number %d\n",WHILE_KEYWORD,someLexics[position].token,position); return(0);
 	}
 }
 
@@ -309,14 +309,14 @@ _Bool expression(struct lexics *someLexics){
 	// term {BINOP term}
 	if(check != LEFT_PARENTHESIS){
 		if((expressionBool = term(someLexics)) != 1){
-			printf("Failed in expression method when calling term\n"); exit(0);
+			printf("Failed in expression method when calling term\n"); return(0);
 		}
 		// Conditional BINOP term
 		int next = peek(someLexics);
 		while(next == BINOP){
 			position++; // Increment. We know it's a binop already.
 			if((expressionBool = term(someLexics)) != 1){
-				printf("Failed in expression method when calling term after a BINOP\n"); exit(0);
+				printf("Failed in expression method when calling term after a BINOP\n"); return(0);
 			}
 			next = peek(someLexics);
 		}
@@ -324,13 +324,13 @@ _Bool expression(struct lexics *someLexics){
 	// ( expression )
 	else{
 		if((expressionBool = LP(someLexics)) != 1){
-			printf("Failed in expression method when calling LP\n"); exit(0);
+			printf("Failed in expression method when calling LP\n"); return(0);
 		}
 		if((expressionBool = expression(someLexics)) != 1){
-			printf("Failed in expression method when calling expression\n"); exit(0);
+			printf("Failed in expression method when calling expression\n"); return(0);
 		}
 		if((expressionBool = RP(someLexics)) != 1){
-			printf("Failed in expression method when calling RP\n"); exit(0);
+			printf("Failed in expression method when calling RP\n"); return(0);
 		}
 	}
 	return expressionBool;
@@ -343,7 +343,7 @@ _Bool returnKeyword(struct lexics *someLexics){
 		return 1;
 	}
 	else{
-		printf("Failed. Expected %d, received %d at token number %d\n",RETURN_KEYWORD,someLexics[position].token,position); exit(0);
+		printf("Failed. Expected %d, received %d at token number %d\n",RETURN_KEYWORD,someLexics[position].token,position); return(0);
 	}
 }
 
@@ -354,7 +354,7 @@ _Bool EOLKeyword(struct lexics *someLexics){
 		return 1;
 	}
 	else{
-		printf("Failed. Expected %d, received %d at token number %d\n",EOL,someLexics[position].token,position); exit(0);
+		printf("Failed. Expected %d, received %d at token number %d\n",EOL,someLexics[position].token,position); return(0);
 	}
 }
 
@@ -365,7 +365,7 @@ _Bool equalKeyword(struct lexics *someLexics){
 		return 1;
 	}
 	else{
-		printf("Failed. Expected %d, received %d at token number %d\n",EQUAL,someLexics[position].token,position); exit(0);
+		printf("Failed. Expected %d, received %d at token number %d\n",EQUAL,someLexics[position].token,position); return(0);
 	}
 }
 
@@ -377,7 +377,7 @@ _Bool term(struct lexics *someLexics){
 		return 1;
 	}
 	else{
-		printf("Failed. Expected %d or %d, received %d at token number %d\n",IDENTIFIER, NUMBER,someLexics[position].token,position); exit(0);
+		printf("Failed. Expected %d or %d, received %d at token number %d\n",IDENTIFIER, NUMBER,someLexics[position].token,position); return(0);
 	}
 }
 
