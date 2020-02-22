@@ -25,10 +25,10 @@ int main(){
 	// 	printf("%s\n",allLexics[x].lexeme);
 	// }
 	printf("Number of lexemes: %d\n",numberOfLexics);
-	printf("Lexemes: ");
-	// for(int i = 0; i < numberOfLexics; i++){
-	// 	printf("In Analyzer.h : %s  \n",allLexics[i].lexeme);
-	// }
+	printf("Lexemes: \n");
+	for(int i = 0; i < numberOfLexics; i++){
+		printf("In Analyzer.h : %s  of type %d\n",allLexics[i].lexeme, allLexics[i].token);
+	}
 	printf("\n");
 	printf("Did parse: %d\n",parser(allLexics, numberOfLexics));
 

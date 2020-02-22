@@ -13,7 +13,7 @@ _Bool vartype(struct lexics *someLexics);
 _Bool identifier(struct lexics *someLexics);
 _Bool LP(struct lexics *someLexics);
 _Bool RP(struct lexics *someLexics);
-_Bool arcdec(struct lexics *someLexics);
+_Bool argdec(struct lexics *someLexics);
 _Bool body(struct lexics *someLexics);
 _Bool LB(struct lexics *someLexics);
 _Bool RB(struct lexics *someLexics);

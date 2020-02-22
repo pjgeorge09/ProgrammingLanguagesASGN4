@@ -35,7 +35,7 @@ _Bool tokenizer(struct lexics *aLex, int *numLex, FILE *inf){
 				else if (strcmp(holder, "return")==0){
 					token = RETURN_KEYWORD;
 				}
-				else if ((strcmp(holder, "int")==0) || (strcmp(holder, "void"))){
+				else if ((strcmp(holder, "int")==0) || (strcmp(holder, "void")==0)){
 					token = VARTYPE;
 				}
 				else{
